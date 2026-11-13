@@ -1,12 +1,12 @@
 /**
- * Visualization, Graph Mode: open the tab, let the force graph settle, hover a
- * table for its preview and neighbourhood, pull a node around, then wheel out
- * and back in so the table names fade away and return.
+ * Visualization, Graph Mode: open the tab, let the force graph settle (tables
+ * sized by their columns and filled with their ERD colors), hover a table for
+ * its preview and neighbourhood, pull a node around, then wheel out and back
+ * in so the table names fade away and return.
  */
-import { readSeed, seedSQL } from '../lib/seed.mjs';
+import { seedSakilaGraph } from './_graph-helpers.mjs';
 import {
   clickDom,
-  dropStrayColumns,
   graphClearPoint,
   graphDots,
   graphHoverLog,
@@ -18,47 +18,6 @@ import {
   timer,
   watchGraphHovers,
 } from './_vsc-helpers.mjs';
-
-// Name, data type and NOT NULL, with the relationship lines: sakila carries no
-// comments or defaults worth a column, so the preview stays narrow.
-const SHOW = 4 | 32 | 128 | 256;
-
-/**
- * Eleven sakila tables (film_text, actor, film_actor, language and payment are
- * left out, so the graph fits the frame at 100%), in the document order that
- * lays them out without a relationship line running through another table's
- * dot or label. The forces place a fresh graph from the node order, so this
- * order is what makes the layout below repeat on every run.
- */
-const ORDER = [
-  'film',
-  'country',
-  'category',
-  'address',
-  'store',
-  'city',
-  'rental',
-  'inventory',
-  'customer',
-  'staff',
-  'film_category',
-];
-
-// The ERD tab the clip opens on, at 80%: two tidy rows in view with the
-// minimap over empty canvas, and the rest of the tables out of frame.
-const ERD = {
-  customer: { x: 24, y: 24 },
-  rental: { x: 324, y: 24 },
-  inventory: { x: 612, y: 24 },
-  address: { x: 24, y: 330 },
-  store: { x: 324, y: 330 },
-  city: { x: 640, y: 330 },
-  staff: { x: 324, y: 660 },
-  film: { x: 1140, y: 24 },
-  country: { x: 1140, y: 440 },
-  film_category: { x: 1460, y: 24 },
-  category: { x: 1460, y: 220 },
-};
 
 // Eight notches of 50px each way: out to 45%, where no name shows, and back
 // to exactly 100%.
@@ -123,16 +82,7 @@ export default {
   lossless: false,
   quality: 80,
   async setup(d) {
-    await seedSQL(d, readSeed('sakila.sql'), {
-      only: ORDER,
-      tables: ERD,
-      settings: { databaseName: 'sakila', show: SHOW, zoomLevel: 0.8 },
-      patch(doc) {
-        dropStrayColumns(doc);
-        const name = id => doc.collections.tableEntities[id].name;
-        doc.doc.tableIds.sort((a, b) => ORDER.indexOf(name(a)) - ORDER.indexOf(name(b)));
-      },
-    });
+    await seedSakilaGraph(d);
   },
   async scenario(d) {
     const mark = timer();

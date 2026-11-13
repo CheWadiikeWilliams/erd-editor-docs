@@ -40,9 +40,13 @@ Draws the whole document as a force-directed graph, so you can see at a glance h
 
 ### Reading the Graph
 
-Every table and every column is a node, and the two kinds are drawn in different colors.  
-Each column node is linked to the table it belongs to, and two tables joined by a relationship are linked to each other.  
+Every table and every column is a node. Each column node is linked to the table it belongs to, and two tables joined by a relationship are linked to each other.  
 Tables joined by more than one relationship in the same direction are linked only once, and a relationship that starts and ends on the same table draws no link.
+
+A table node is filled with the color the table has on the ERD tab — see [Table and Memo Color Specification](./table-related-functions.md#table-and-memo-color-specification). A table with no color, or with a color the browser cannot read, is filled with the theme's accent color. Column nodes are small gray dots.
+
+The size of a table node shows how many columns the table has: its area is proportional to the column count, so a table with 4 columns is drawn twice as wide as a table with 1, and a table with 9 columns three times as wide. A table with no columns is drawn the same size as a table with 1, so there is always something to hover and click.  
+The layout makes room for larger nodes, so a table's columns and the tables it is joined to stay clear of its edge.
 
 Table names appear on the graph as you zoom in, fading in between `50%` and `100%`, and a name longer than 15 characters is cut. Column nodes carry no label at any zoom.
 
@@ -52,7 +56,8 @@ The wheel zooms, about whatever the pointer is over, from `10%` to `400%`.
 A trackpad pinch zooms the same way, and two fingers on a touch screen zoom about the point between them and pan as they move.  
 Drag the background to pan.
 
-The zoom buttons on the [toolbar](#toolbar) and the zoom shortcuts hold the middle of the screen still instead, within the same range, and `Fit` brings every node into view.
+The zoom buttons on the [toolbar](#toolbar) and the zoom shortcuts hold the middle of the screen still instead, within the same range, and `Fit` brings every node into view.  
+Click a table node to zoom to that table and the tables it is joined to — see [Zooming to a Table](#zooming-to-a-table).
 
 ### Hover Preview
 
@@ -65,7 +70,19 @@ It is display-only, and it is hidden while you drag a node or the background.
 ### Highlighting a Neighbourhood
 
 Hovering a table also lights up its neighbourhood: the table itself, its own columns, the tables its relationships join in either direction, and the links between them.  
-Everything else on the graph fades, so what the table touches reads on its own.
+Everything else on the graph fades, so what the table touches reads on its own.  
+Clicking a table keeps its neighbourhood lit after the pointer moves away — see [Zooming to a Table](#zooming-to-a-table).
+
+### Zooming to a Table
+
+Click a table node to zoom to it. The view centers on that table's [neighbourhood](#highlighting-a-neighbourhood), the table with its own columns and the tables its relationships join in either direction, and zooms to fit it on the screen, but never past `200%`.
+
+The neighbourhood stays lit after the pointer leaves the node, so you can look around it. While you hover another table, that table's neighbourhood is lit instead, and the clicked one comes back when you move off it.  
+Click another table node to zoom to that one instead, or click the same node again to frame it again once the layout has moved.  
+Click an empty part of the background to clear the highlight. The zoom and position stay where they are, and `Fit` on the [toolbar](#toolbar) brings the whole graph back into view.
+
+Only a left click on a table node zooms; on a touch screen, a tap does the same. A press that moves more than a few pixels before you let go is a drag instead — see [Moving Nodes](#moving-nodes). Clicking a column node does nothing.  
+Every node stays on the graph: unlike [Focusing on Tables](#focusing-on-tables) in `Flow`, this does not narrow the view.
 
 ### Moving Nodes
 
@@ -76,7 +93,8 @@ It settles again when you let go — nothing stays pinned where you dropped it.
 ### The Graph Is a Snapshot
 
 The graph is built from the document as it stands the moment you open this tab, and it is rebuilt from scratch every time you come back to it.  
-Switching to `Graph` from `Flow` rebuilds it as well, and every rebuild starts again at `100%`.
+Switching to `Graph` from `Flow` rebuilds it as well, and every rebuild starts again at `100%`, with no table clicked.  
+Node sizes and colors are part of that snapshot: a column added or a color changed while the graph is open, by a collaborator for example, shows the next time the graph is built.
 
 ## Flow Mode
 

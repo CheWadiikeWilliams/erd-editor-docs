@@ -66,7 +66,8 @@ Shortcuts: `Ctrl + Backspace` (Windows/Linux) or `Ctrl + Delete` (Windows/Linux)
 ## Table and Memo Color Specification
 
 You can designate colors to differentiate by category.  
-A table wears its color down its left edge, and a memo along its top. Click that edge or strip to open the picker. The color is applied to every selected table and memo, not only the one you clicked.
+A table wears its color down its left edge, and a memo along its top. Click that edge or strip to open the picker. The color is applied to every selected table and memo, not only the one you clicked.  
+A table's color also shows in [Visualization](./visualization.md#reading-the-graph): it fills the table's node in `Graph`, and runs down the left edge of its card in `Flow`.
 
 ![Picking a color from a memo's color strip, applied to every selected table and memo](/img/demo-table-color.webp)
 

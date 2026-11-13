@@ -274,7 +274,11 @@ export function timer() {
     console.log(`  ${((Date.now() - start) / 1000).toFixed(2)}s ${label}`);
 }
 
-/** Every Graph dot in viewport px: { x, y, table, name } (name only on tables). */
+/**
+ * Every Graph dot in viewport px: { x, y, r, table, name } (name only on
+ * tables). r is the radius drawn on screen, which grows with a table's column
+ * count and with the zoom.
+ */
 export function graphDots(d) {
   return d.page.evaluate(() => {
     const stage = window.__erdStages.visualization;
@@ -286,6 +290,7 @@ export function graphDots(d) {
       return {
         x: c.left + r.x + r.width / 2,
         y: c.top + r.y + r.height / 2,
+        r: r.width / 2,
         table,
         name: table ? doc.collections.tableEntities[n.getAttr('tableId')].name : null,
       };
@@ -318,12 +323,14 @@ export async function graphRouteMoveTo(
   const from = d.mouse;
   const dots = await graphDots(d);
   const near = (q, p, r) => Math.hypot(q.x - p.x, q.y - p.y) < r;
+  // Clearances are measured past each dot's own rim, so a large table, or any
+  // dot zoomed in, is kept as far clear as the small dots of a 100% graph.
   const obstacles = dots
-    .filter(q => !near(q, to, q.table ? 10 : 5) && !near(q, from, q.table ? 10 : 5))
+    .filter(q => !near(q, to, q.r + 2) && !near(q, from, q.r + 2))
     .map(q => {
-      const end = near(q, to, 52) || near(q, from, 52);
-      const clear = q.table ? (end ? 14 : 26) : end ? 9 : 14;
-      return { x: q.x, y: q.y, clear: clear * margin };
+      const end = near(q, to, q.r + 44) || near(q, from, q.r + 44);
+      const gap = q.table ? (end ? 6 : 18) : end ? 5 : 10;
+      return { x: q.x, y: q.y, clear: (q.r + gap) * margin };
     });
   const boxes = avoid.filter(Boolean).map(b => ({
     x0: b.x - 8, y0: b.y - 8, x1: b.x + b.width + 8, y1: b.y + b.height + 8,
