@@ -1,0 +1,76 @@
+{
+  "theme.SearchBar.label": {
+    "message": "검색",
+    "description": "The ARIA label and placeholder for search button"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "전체 검색 결과 보기",
+    "description": "See all search results"
+  },
+  "theme.SearchBar.noResultsText": {
+    "message": "검색 결과가 없습니다.",
+    "description": "The text when no results are found for the search bar"
+  },
+  "theme.SearchBar.searchInContext": {
+    "message": "\"{context}\"의 전체 검색 결과 보기",
+    "description": "See all search results within a specific context"
+  },
+  "theme.SearchBar.seeAllOutsideContext": {
+    "message": "\"{context}\" 이외의 전체 검색 결과 보기",
+    "description": "See all search results outside a specific context"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "\"{query}\" 검색 결과",
+    "description": "The search page title for non-empty query"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "검색어를 입력하세요.",
+    "description": "The search page title for empty query"
+  },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "{count}개의 문서를 찾았습니다",
+    "description": "Pluralized label for \"{count} documents found\". Korean has a single plural form."
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "검색 결과가 없습니다.",
+    "description": "The paragraph for empty search result"
+  },
+  "theme.SearchPage.searchContext.everywhere": {
+    "message": "전체",
+    "description": "The label for search context: everywhere"
+  },
+  "homepage.tagline": {
+    "message": "엔티티 관계 다이어그램 편집기",
+    "description": "The hero subtitle and the browser tab title of the homepage"
+  },
+  "homepage.heroImageAlt": {
+    "message": "VS Code에서 실행 중인 erd-editor",
+    "description": "Alt text for the homepage screenshot"
+  },
+  "homepage.cta": {
+    "message": "편집 가이드 — 5분 ⏱️",
+    "description": "Label of the call-to-action button on the homepage"
+  },
+  "homepage.metaDescription": {
+    "message": "erd-editor는 웹 앱, Google Drive 앱, VSCode 확장, IntelliJ 플러그인, Obsidian 플러그인, 그리고 직접 삽입할 수 있는 웹 컴포넌트로 제공되는 ERD 편집기입니다.",
+    "description": "The meta description of the homepage"
+  },
+  "homepage.feature.easy.title": {
+    "message": "쉬운 사용"
+  },
+  "homepage.feature.easy.description": {
+    "message": "단순함과 핵심 기능에 집중합니다."
+  },
+  "homepage.feature.editing.title": {
+    "message": "편집 경험"
+  },
+  "homepage.feature.editing.description": {
+    "message": "이 프로젝트의 최우선순위는 사용자의 편집 경험입니다."
+  },
+  "homepage.feature.portability.title": {
+    "message": "이식성"
+  },
+  "homepage.feature.portability.description": {
+    "message": "표준 웹 컴포넌트로 개발되어 프레임워크에 상관없이 어디서나 사용할 수 있습니다."
+  }
+}
